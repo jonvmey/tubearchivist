@@ -13,7 +13,7 @@ class FavouriteState:
     """handle favourite status for videos"""
 
     def __init__(self, youtube_id, is_favourite):
-        print(f"FavouriteState constructor {youtube_id} {is_favourit}")
+        print(f"FavouriteState constructor {youtube_id} {is_favourite}")
         print(f"FavouriteState constructor setting youtube_id")
         self.youtube_id = youtube_id
         print(f"FavouriteState constructor setting is_favourite")

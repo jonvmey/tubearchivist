@@ -10,7 +10,7 @@ from home.src.ta.urlparser import Parser
 
 
 class FavouriteState:
-    """handle favourite checkbox for videos and channels"""
+    """handle favourite status for videos"""
 
     def __init__(self, youtube_id, is_favourite):
         print(f"FavouriteState constructor {youtube_id} {is_favourit}")

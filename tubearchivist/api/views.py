@@ -19,6 +19,7 @@ from home.src.download.yt_dlp_base import CookieHandler
 from home.src.es.backup import ElasticBackup
 from home.src.es.connect import ElasticWrap
 from home.src.es.snapshot import ElasticSnapshot
+from home.src.frontend.favourited import FavouriteState
 from home.src.frontend.searching import SearchForm
 from home.src.frontend.watched import WatchState
 from home.src.index.channel import YoutubeChannel
@@ -1101,7 +1102,7 @@ class WatchedView(ApiBaseView):
 class FavouriteView(ApiBaseView):
 
     """resolves to /api/favourite/
-    POST: change favourite state of video, channel or playlist
+    POST: change favourite state of video
     """
 
     def post(self, request):
@@ -1115,8 +1116,10 @@ class FavouriteView(ApiBaseView):
             message = {"message": "missing id or is_favourite"}
             return Response(message, status=400)
 
+        print(f"making FavouriteState")
+        fav = FavouriteState(youtube_id, is_favourite)
         print(f"calling change {youtube_id} {is_favourite}")
-        FavouriteState(youtube_id, is_favourite).change()
+        fav.change()
         return Response({"message": "success"}, status=200)
 
 

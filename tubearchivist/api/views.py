@@ -1115,6 +1115,7 @@ class FavouriteView(ApiBaseView):
             message = {"message": "missing id or is_favourite"}
             return Response(message, status=400)
 
+        print(f"calling change {youtube_id} {is_favourite}")
         FavouriteState(youtube_id, is_favourite).change()
         return Response({"message": "success"}, status=200)
 

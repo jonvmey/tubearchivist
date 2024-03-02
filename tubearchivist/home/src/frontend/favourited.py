@@ -22,7 +22,9 @@ class FavouriteState:
         """change favourite state of item(s)"""
         print(f"{self.youtube_id}: change favourite state to {self.is_favourite}")
         url_type = self._dedect_type()
+        print(f"url_type {url_type}")
         if url_type == "video":
+            print(f"calling change_vid_state")
             self.change_vid_state()
             return
 
@@ -37,6 +39,21 @@ class FavouriteState:
         url_process = Parser(self.youtube_id).parse()
         url_type = url_process[0]["type"]
         return url_type
+
+    def change_vid_state(self):
+        """change favourited state of video"""
+        print(f"change_vid_state {self.youtube_id} {self.is_favourite}")
+        path = f"ta_video/_update/{self.youtube_id}"
+        data = {
+            "doc": {
+                "is_favourite": self.is_favourite,
+            }
+        }
+        print(f"changing vid state to {self.is_favourite}")
+        response, status_code = ElasticWrap(path).post(data=data)
+        if status_code != 200:
+            print(response)
+            raise ValueError("failed to mark video as watched")
 
     def _build_update_data(self, url_type):
         """build update by query data based on url_type"""

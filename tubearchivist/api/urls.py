@@ -137,6 +137,11 @@ urlpatterns = [
         name="api-watched",
     ),
     path(
+        "favourite/",
+        views.FavouriteView.as_view(),
+        name="api-favourite",
+    ),
+    path(
         "search/",
         views.SearchView.as_view(),
         name="api-search",

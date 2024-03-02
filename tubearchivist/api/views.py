@@ -1098,6 +1098,25 @@ class WatchedView(ApiBaseView):
         return Response({"message": "success"}, status=200)
 
 
+class FavouriteView(ApiBaseView):
+
+    """resolves to /api/favourite/
+    POST: change favourite state of video, channel or playlist
+    """
+
+    def post(self, request):
+        """change favourite state"""
+        youtube_id = request.data.get("id")
+        is_favourite = request.data.get("is_favourite")
+
+        if not youtube_id or is_favourite is None:
+            message = {"message": "missing id or is_favourite"}
+            return Response(message, status=400)
+
+        FavouriteState(youtube_id, is_favourite).change()
+        return Response({"message": "success"}, status=200)
+
+
 class SearchView(ApiBaseView):
     """resolves to /api/search/
     GET: run a search with the string in the ?query parameter

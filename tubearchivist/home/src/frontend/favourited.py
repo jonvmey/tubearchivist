@@ -13,10 +13,18 @@ class FavouriteState:
     """handle favourite checkbox for videos and channels"""
 
     def __init__(self, youtube_id, is_favourite):
+        print(f"FavouriteState constructor {youtube_id} {is_favourit}")
+        print(f"FavouriteState constructor setting youtube_id")
         self.youtube_id = youtube_id
+        print(f"FavouriteState constructor setting is_favourite")
         self.is_favourite = is_favourite
-        self.stamp = int(datetime.now().timestamp())
+        now = datetime.now()
+        stamp = now.timestamp()
+        print(f"FavouriteState constructor setting stamp {now} {stamp}")
+        self.stamp = int(stamp)
+        print(f"FavouriteState constructor setting pipeline")
         self.pipeline = f"_ingest/pipeline/favourite_{youtube_id}"
+        print(f"FavouriteState constructor end")
 
     def change(self):
         """change favourite state of item(s)"""

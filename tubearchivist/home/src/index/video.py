@@ -150,6 +150,7 @@ class YoutubeVideo(YouTubeItem, YoutubeSubtitle):
         self._process_youtube_meta()
         self._add_channel()
         self._add_stats()
+        self._add_is_favourite()
         self.add_file_path()
         self.add_player(media_path)
         self.add_streams(media_path)
@@ -231,6 +232,14 @@ class YoutubeVideo(YouTubeItem, YoutubeSubtitle):
             "average_rating": self.youtube_meta.get("average_rating", 0),
         }
         self.json_data.update({"stats": stats})
+
+    def _add_is_favourite(self):
+        """add is_favourite to json_data"""
+        self.json_data.update(
+            {
+                "is_favourite": False
+            }
+        )
 
     def build_dl_cache_path(self):
         """find video path in dl cache"""

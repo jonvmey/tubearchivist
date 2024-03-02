@@ -1107,23 +1107,14 @@ class FavouriteView(ApiBaseView):
 
     def post(self, request):
         """change favourite state"""
-        print(f"request: {request}")
         youtube_id = request.data.get("id")
         is_favourite = request.data.get("is_favourite")
-        print(f"id: {youtube_id}, is_fav: {is_favourite}")
 
         if not youtube_id or is_favourite is None:
             message = {"message": "missing id or is_favourite"}
             return Response(message, status=400)
 
-        try:
-            print(f"making FavouriteState")
-            fav = FavouriteState(youtube_id, is_favourite)
-            print(f"calling change {youtube_id} {is_favourite}")
-            fav.change()
-        except Exception as e:
-            print(f"Exception: {e}")
-
+        FavouriteState(youtube_id, is_favourite).change()
         return Response({"message": "success"}, status=200)
 
 

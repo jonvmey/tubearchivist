@@ -1116,10 +1116,14 @@ class FavouriteView(ApiBaseView):
             message = {"message": "missing id or is_favourite"}
             return Response(message, status=400)
 
-        print(f"making FavouriteState")
-        fav = FavouriteState(youtube_id, is_favourite)
-        print(f"calling change {youtube_id} {is_favourite}")
-        fav.change()
+        try:
+            print(f"making FavouriteState")
+            fav = FavouriteState(youtube_id, is_favourite)
+            print(f"calling change {youtube_id} {is_favourite}")
+            fav.change()
+        except Exception as e:
+            print(f"Exception: {e}")
+
         return Response({"message": "success"}, status=200)
 
 
